@@ -28,7 +28,7 @@ modded class MissionServer
 			return;
 
 		// Send client config
-		ref Param2<ref ZenComboLocksClientConfig, bool> configParams = new ref Param2<ref ZenComboLocksClientConfig, bool>(
+		Param2<ref ZenComboLocksClientConfig, bool> configParams = new Param2<ref ZenComboLocksClientConfig, bool>(
 			GetZenComboLocksConfig().ClientSyncConfig,
 			GetZenComboLocksConfig().IsAdminZCBL(player.GetIdentity().GetPlainId()));
 		GetRPCManager().SendRPC("RPC_ZCL", "RPC_ReceiveZenComboLocksConfigOnClient", configParams, true, player.GetIdentity());

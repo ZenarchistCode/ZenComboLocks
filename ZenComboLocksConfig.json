@@ -1,0 +1,60 @@
+{
+    "ConfigVersion": "2", // Don't touch this
+    "ServerConfig": {
+        "PrintLogs": 1, // Turn on/off debug logs (found in profiles/Zenarchist/Logs/ZenComboLocks.log)
+        "UnlockOnOpen": 0, // Makes the combo lock "takeable" when the door is open (otherwise stays locked on gate when door is open)
+        "DigitMultiplier": 1, // Used for simulating lock digits if InstantOpen is disabled (1 = a 3 digit lock requires 3 fake spins to open, 2 = it requires 6 fake spins etc)
+        "AdminSteamIDs": [
+            "www.steamidfinder.com" // Put your admin steam ID in here if you want to be able to open locks without knowing the code
+        ]
+    },
+    "ClientSyncConfig": {
+        "AllowAdminOpen": 0, // Enable/disable admins being able to open the locks (their id must be in the list above)
+        "InteractAnywhere": 1, // Turns on/off being able to interact with the lock from anywhere on the gate (like Code Lock mod does) - of disabled you need to look at the lock directly.
+        "InstantOpen": 1, // If enabled door opens immediately, if disabled player must "cycle" through the digits to open the lock (for a more vanilla feel - basically makes it easier to door camp base owners)
+        "DismantleWithLock": 0, // If enabled, the fence can be disabled even when a lock is still attached (the lock stays on the fence but the gate itself can be dismantled if you're on the soft side)
+        "DisplayDigits": 2, // 0 = don't display mini HUD digits when spinning lock, 1 = only display the current digit, 2 = display entire current digit code
+        "DialTime": 0.5, // How long each spin of a dial takes in seconds (default .5 secs per digit change) - can be used to slow down code-guessing on vanilla locks
+        "OwnerCanRemoveLockWithoutCode": 0, // If enabled then the lock owner who attached the lock can also remove the lock to their hands without needing to re-enter the code
+        "RaidConfig": {
+            "Enabled": 1, // Enable/disable my custom bolt cutter raid config
+            "LockConfig": [
+                {
+                    "LockType": "CombinationLock", // The lock type that the bolt cutter can be used on
+                    "TimeRequired": 30, // The total time in seconds it takes to cut the lock
+                    "DamageTool": 250 // The damage done to the bolt cutter tool (tool's pristine total HP is 1000)
+                },
+                {
+                    "LockType": "CombinationLock4",
+                    "TimeRequired": 60,
+                    "DamageTool": 500
+                },
+                {
+                    "LockType": "Zen_CombinationLock5",
+                    "TimeRequired": 90,
+                    "DamageTool": 600
+                },
+                {
+                    "LockType": "Zen_CombinationLock6",
+                    "TimeRequired": 120,
+                    "DamageTool": 700
+                },
+                {
+                    "LockType": "Zen_CombinationLock7",
+                    "TimeRequired": 150,
+                    "DamageTool": 800
+                },
+                {
+                    "LockType": "Zen_CombinationLock8",
+                    "TimeRequired": 180,
+                    "DamageTool": 900
+                },
+                {
+                    "LockType": "Zen_CombinationLock9",
+                    "TimeRequired": 210,
+                    "DamageTool": 1000
+                }
+            ]
+        }
+    }
+}

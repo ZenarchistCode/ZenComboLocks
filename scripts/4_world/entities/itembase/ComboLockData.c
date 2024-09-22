@@ -5,7 +5,7 @@ class ComboLockData
 
 	void ComboLockData()
 	{
-		m_PermittedPlayers = new ref array<string>;
+		m_PermittedPlayers = new array<string>;
 		m_PlayerOwner = "";
 	}
 };

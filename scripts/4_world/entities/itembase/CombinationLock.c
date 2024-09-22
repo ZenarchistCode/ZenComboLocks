@@ -51,12 +51,9 @@ modded class CombinationLock
 		// If we have not received client-side combo lock data, request it
 		if (!m_ReceivedPerms)
 		{
-			if (GetGame() && GetGame().GetPlayer())
-			{
-				// Send request
-				Param1<bool> params = new Param1<bool>(true);
-				this.RPCSingleParam(ZENCOMBOLOCKRPCs.REQUEST_COMBO_DATA, params, true, NULL);
-			}
+			// Send request
+			Param1<bool> params = new Param1<bool>(true);
+			RPCSingleParam(ZENCOMBOLOCKRPCs.REQUEST_COMBO_DATA, params, true, NULL);
 		}
 	}
 
@@ -366,7 +363,7 @@ modded class CombinationLock
 
 		// Send combo lock permissions
 		Param1<bool> data = new Param1<bool>(hasPerms);
-		this.RPCSingleParam(ZENCOMBOLOCKRPCs.RECEIVE_COMBO_DATA, data, true, player.GetIdentity());
+		RPCSingleParam(ZENCOMBOLOCKRPCs.RECEIVE_COMBO_DATA, data, true, player.GetIdentity());
 	}
 
 	// Is the given player ID permitted to open this combo lock?
@@ -461,10 +458,14 @@ modded class CombinationLock
 	// BBP does not call super, so unfortunately I need to do this. All my custom actions call UnlockServerZen directly, so this is purely for BBP compatibility
 	override void UnlockServer(EntityAI player, EntityAI parent)
 	{
-		if (GetHierarchyParent().IsKindOf("BBP_WALL_BASE"))
+		EntityAI hparent = GetHierarchyParent();
+		if (hparent != NULL)
 		{
-			UnlockServerZen(player, parent);
-			return;
+			if (GetHierarchyParent().IsKindOf("BBP_WALL_BASE"))
+			{
+				UnlockServerZen(player, parent);
+				return;
+			}
 		}
 
 		super.UnlockServer(player, parent);

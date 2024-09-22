@@ -20,4 +20,4 @@ modded class PlayerBase
 
 		return false;
 	}
-};
+}
