@@ -11,7 +11,7 @@ modded class MissionGameplay
     {
         if (type == CallType.Client)
         {
-            ref Param2<ref ZenComboLocksClientConfig, bool> data;
+            Param2<ref ZenComboLocksClientConfig, bool> data;
 
             // If data fails to read, stop here.
             if (!ctx.Read(data))

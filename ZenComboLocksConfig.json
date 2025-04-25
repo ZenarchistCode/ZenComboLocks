@@ -17,7 +17,7 @@
         "DialTime": 0.5, // How long each spin of a dial takes in seconds (default .5 secs per digit change) - can be used to slow down code-guessing on vanilla locks
         "OwnerCanRemoveLockWithoutCode": 0, // If enabled then the lock owner who attached the lock can also remove the lock to their hands without needing to re-enter the code
         "RaidConfig": {
-            "Enabled": 1, // Enable/disable my custom bolt cutter raid config
+            "Enabled": 0, // Enable/disable my custom bolt cutter raid config
             "LockConfig": [
                 {
                     "LockType": "CombinationLock", // The lock type that the bolt cutter can be used on
@@ -26,6 +26,11 @@
                 },
                 {
                     "LockType": "CombinationLock4",
+                    "TimeRequired": 60,
+                    "DamageTool": 500
+                },
+				{
+                    "LockType": "Zen_CombinationLock4",
                     "TimeRequired": 60,
                     "DamageTool": 500
                 },
