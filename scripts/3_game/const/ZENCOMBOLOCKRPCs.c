@@ -1,0 +1,6 @@
+// Define network RPC IDs
+enum ZENCOMBOLOCKRPCs
+{
+	RECEIVE_COMBO_DATA,
+	REQUEST_COMBO_DATA
+}

@@ -1,0 +1,10 @@
+name = "Combination Locks Overhaul"; // name
+picture = "ZenComboLocks\data\thumbnail.edds"; // picture in expanded description
+logoSmall = "ZenComboLocks\data\thumbnail.edds"; // icon next to mod name when description is not expanded
+logo = "ZenComboLocks\data\thumbnail.edds"; // logo below game menu
+logoOver = "ZenComboLocks\data\thumbnail.edds"; // on mouse hover over logo
+tooltip = "Zenarchist's Combination Locks Overhaul"; // tool tip on mouse hover
+overview = "Adds new QOL features to vanilla combination locks."; // overview
+action = "https://zenarchist.io/"; // link
+author = "Zenarchist"; // author
+version = "1.0"; // version
