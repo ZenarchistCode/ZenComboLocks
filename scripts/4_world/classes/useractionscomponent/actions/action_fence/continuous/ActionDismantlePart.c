@@ -2,6 +2,13 @@ modded class ActionDismantlePart
 {
 	override bool DismantleCondition(PlayerBase player, ActionTarget target, ItemBase item, bool camera_check)
 	{
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			return super.DismantleCondition(player, target, item, camera_check);
+		}
+		#endif
+
 		// If dismantle with lock is disabled, just return vanilla condition
 		if (!GetZenComboLocksConfig().ClientSyncConfig || !GetZenComboLocksConfig().ClientSyncConfig.DismantleWithLock)
 		{
@@ -73,6 +80,13 @@ modded class ActionDismantlePart
 	override void OnFinishProgressServer(ActionData action_data)
 	{
 		super.OnFinishProgressServer(action_data);
+
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			return;
+		}
+		#endif
 
 		if (!action_data.m_Target || !action_data.m_Target.GetObject())
 			return;

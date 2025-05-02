@@ -17,20 +17,6 @@ modded class CombinationLock
 		m_LastSimulatedDialChanges = -1;
 	}
 
-	void DeferredInit()
-	{
-		super.DeferredInit();
-
-		float opacity = 0.9;
-		string color = "0.5,0.5,0.5"; //rgb
-
-        string textureAlpha = "#(argb,8,8,3)color(" + color + "," + opacity + ",ca)";
-		SetObjectTexture(0, textureAlpha);
-		SetObjectTexture(1, textureAlpha);
-		SetObjectTexture(2, textureAlpha);
-		SetObjectTexture(3, textureAlpha);
-	}
-
 	void ~CombinationLock()
 	{
 		delete m_ZenComboLockGUI;
@@ -39,6 +25,11 @@ modded class CombinationLock
 	override void EOnInit(IEntity other, int extra)
 	{
 		super.EOnInit(other, extra);
+
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+			return;
+		#endif
 
 		if (GetGame().IsDedicatedServer())
 			GetGame().GetCallQueue(CALL_CATEGORY_SYSTEM).CallLater(CheckLockRestart, 5000, false);
@@ -150,8 +141,8 @@ modded class CombinationLock
 		if (GetHierarchyParent() && GetHierarchyParent().IsInherited(BaseBuildingBase))
 		{
 			LockServer(GetHierarchyParent(), true);
-		};
-	};
+		}
+	}
 
 	// Lock the... lock.. to the gate
 	void LockTheLockToTheGate()
@@ -275,6 +266,7 @@ modded class CombinationLock
 	override void InitItemVariables()
 	{
 		super.InitItemVariables();
+
 		RegisterNetSyncVariableInt("m_ServerSyncID");
 		RegisterNetSyncVariableInt("m_SimulatedDialChanges");
 	}
@@ -282,6 +274,13 @@ modded class CombinationLock
 	override void OnVariablesSynchronized()
 	{
 		super.OnVariablesSynchronized();
+
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			return;
+		}
+		#endif
 
 		// Server has forced re-sync
 		if (m_ClientSyncID != m_ServerSyncID)
@@ -311,6 +310,13 @@ modded class CombinationLock
 	override void OnRPC(PlayerIdentity sender, int rpc_type, ParamsReadContext ctx)
 	{
 		super.OnRPC(sender, rpc_type, ctx);
+
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			return;
+		}
+		#endif
 
 		// Client-side receiver for combo lock data
 		if (rpc_type == ZENCOMBOLOCKRPCs.RECEIVE_COMBO_DATA)
@@ -458,6 +464,13 @@ modded class CombinationLock
 	{
 		super.LockServer(parent, ignore_combination);
 
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			return;
+		}
+		#endif
+
 		// Check if we're on a gate/door, if so, lock the combination lock to parent so it can't be taken to hands/inventory
 		GetGame().GetCallQueue(CALL_CATEGORY_SYSTEM).Remove(LockTheLockToTheGate);
 		GetGame().GetCallQueue(CALL_CATEGORY_SYSTEM).CallLater(LockTheLockToTheGate, 100, false);
@@ -465,11 +478,18 @@ modded class CombinationLock
 
 	override bool IsLocked()
 	{
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			return super.IsLocked();
+		}
+		#endif
+
 		if (IsTakeable())
 			return false;
 
 		return super.IsLocked();
-	};
+	}
 
 	// BF compatibility
 	override bool IsLockedOnGate()
@@ -493,6 +513,14 @@ modded class CombinationLock
 	// BBP does not call super, so unfortunately I need to do this. All my custom actions call UnlockServerZen directly, so this is purely for BBP compatibility
 	override void UnlockServer(EntityAI player, EntityAI parent)
 	{
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			super.UnlockServer(player, parent);
+			return;
+		}
+		#endif
+
 		EntityAI hparent = GetHierarchyParent();
 		if (hparent != NULL)
 		{
@@ -550,6 +578,14 @@ modded class CombinationLock
 	// Detect item location changed - ie. attached to a fence or object
 	override void OnItemLocationChanged(EntityAI old_owner, EntityAI new_owner)
 	{
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			super.OnItemLocationChanged(old_owner, new_owner);
+			return;
+		}
+		#endif
+
 		if (!old_owner || !old_owner.IsInherited(PlayerBase))
 			return;
 
@@ -584,6 +620,13 @@ modded class CombinationLock
 	{
 		super.OnStoreSave(ctx);
 
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			return;
+		}
+		#endif
+
 		// Save player owner ID & permitted players
 		ctx.Write(m_ComboLockData);
 	}
@@ -593,6 +636,13 @@ modded class CombinationLock
 	{
 		if (!super.OnStoreLoad(ctx, version)) 
 			return false;
+
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			return true;
+		}
+		#endif
 
 		if (!ctx.Read(m_ComboLockData))
 		{
@@ -608,8 +658,8 @@ modded class CombinationLock
 		super.SetActions();
 
 		// Remove vanilla actions - this helps protect against compatability issues with future vanilla updates + other mods that override these actions
-		RemoveAction(ActionNextCombinationLockDialOnTarget);
-		RemoveAction(ActionDialCombinationLockOnTarget);
+		//RemoveAction(ActionNextCombinationLockDialOnTarget);
+		//RemoveAction(ActionDialCombinationLockOnTarget);
 
 		// Add my vanilla action changes
 		AddAction(Zen_ActionNextCombinationLockDialOnTarget);
@@ -621,4 +671,4 @@ modded class CombinationLock
 		AddAction(Zen_ActionManageCombinationLockOnTarget);
 		AddAction(Zen_ActionAdminCombinationLockOnTarget);
 	}
-};
+}

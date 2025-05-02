@@ -40,6 +40,7 @@ class Zen_BoltCutter extends ToolBase
 	override void SetActions()
 	{
 		super.SetActions();
+
 		AddAction(ActionMineBush);
 		AddAction(ActionMineTreeBark);
 		AddAction(ActionUnrestrainTarget);
@@ -47,4 +48,4 @@ class Zen_BoltCutter extends ToolBase
 		AddAction(Zen_ActionRaidComboLockTarget);
 		AddAction(Zen_ActionRaidComboLockFence);
 	}
-};
+}

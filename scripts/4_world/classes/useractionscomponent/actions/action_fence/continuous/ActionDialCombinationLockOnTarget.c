@@ -1,22 +1,15 @@
-// Simple vanilla override - no need for custom action
-modded class ActionDialCombinationLockCB : ActionContinuousBaseCB
+modded class ActionDialCombinationLockOnTarget
 {
-	override void CreateActionComponent()
+	override bool ActionCondition(PlayerBase player, ActionTarget target, ItemBase item)
 	{
 		#ifdef ZENMODPACK
 		if (!ZenModEnabled("ZenComboLocks"))
-		{
-			super.CreateActionComponent();
-			return;
-		}
+			return super.ActionCondition(player, target, item);
 		#endif
 
-		m_ActionData.m_ActionComponent = new CAContinuousRepeat(GetZenComboLocksConfig().ClientSyncConfig.DialTime);
+		return false;
 	}
-}
 
-modded class ActionDialCombinationLock : ActionContinuousBase
-{
 	// CLIENT-SIDE: Display code digit if enabled in config
 	override void Do(ActionData action_data, int state)
 	{
@@ -24,9 +17,7 @@ modded class ActionDialCombinationLock : ActionContinuousBase
 
 		#ifdef ZENMODPACK
 		if (!ZenModEnabled("ZenComboLocks"))
-		{
 			return;
-		}
 		#endif
 
 		// If digit display is disabled or we're calling Do() on server, stop here

@@ -2,6 +2,14 @@ modded class ActionDialCombinationLockOnTargetCB : ActionContinuousBaseCB
 {
 	override void CreateActionComponent()
 	{
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			super.CreateActionComponent();
+			return;
+		}
+		#endif
+
 		m_ActionData.m_ActionComponent = new CAContinuousRepeat(GetZenComboLocksConfig().ClientSyncConfig.DialTime);
 	}
 }
@@ -41,6 +49,13 @@ class Zen_ActionDialCombinationLockOnTarget : ActionContinuousBase
 
 	override bool ActionCondition(PlayerBase player, ActionTarget target, ItemBase item)
 	{
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			return false;
+		}
+		#endif
+
 		// If there is no object, stop here
 		if (!target.GetObject() || !GetZenComboLocksConfig().ClientSyncConfig)
 			return false;

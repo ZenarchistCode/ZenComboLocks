@@ -21,6 +21,13 @@ class Zen_ActionOpenComboLockInstant : ActionInteractBase
 	// Check the various conditions required to allow this action
 	override bool ActionCondition(PlayerBase player, ActionTarget target, ItemBase item)
 	{
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			return false;
+		}
+		#endif
+
 		// If there is no target, stop here
 		if (!target.GetObject() || !GetZenComboLocksConfig().ClientSyncConfig)
 			return false;

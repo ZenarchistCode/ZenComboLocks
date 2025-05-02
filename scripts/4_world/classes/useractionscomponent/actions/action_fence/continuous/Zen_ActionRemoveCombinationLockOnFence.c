@@ -28,6 +28,13 @@ class Zen_ActionRemoveCombinationLockOnFence : ActionContinuousBase
 	// Check both client & server-side action requirements
 	override bool ActionCondition(PlayerBase player, ActionTarget target, ItemBase item)
 	{
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			return false;
+		}
+		#endif
+
 		// If there is no object or we're holding something, stop here
 		if (!target.GetObject() || item || !GetZenComboLocksConfig().ClientSyncConfig)
 			return false;

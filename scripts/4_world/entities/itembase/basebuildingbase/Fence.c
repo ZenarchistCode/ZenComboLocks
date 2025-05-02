@@ -20,6 +20,13 @@ modded class Fence
 	{
 		super.CloseFence();
 
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			return;
+		}
+		#endif
+
 		#ifdef SERVER
 		if (GetCombinationLock() && GetCombinationLock().IsTakeable())
 		{

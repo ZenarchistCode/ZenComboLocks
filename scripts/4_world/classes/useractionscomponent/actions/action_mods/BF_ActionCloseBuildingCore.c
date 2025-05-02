@@ -3,6 +3,13 @@ modded class ActionCloseBuildingCore : ActionInteractBase
 {
 	override bool ActionCondition(PlayerBase player, ActionTarget target, ItemBase item)
 	{
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			return super.ActionCondition(player, target, item);
+		}
+		#endif
+
 		Object targetObject = target.GetObject();
 		if (targetObject && targetObject.CanUseConstruction())
 		{
@@ -23,6 +30,13 @@ modded class ActionCloseBuildingCore : ActionInteractBase
 	override void OnStartClient(ActionData action_data)
 	{
 		super.OnStartClient(action_data);
+
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			return;
+		}
+		#endif
 
 		// Get combo lock
 		CombinationLock combination_lock = ZenComboLocksHelper.GetCombinationLock(action_data.m_Target.GetObject());

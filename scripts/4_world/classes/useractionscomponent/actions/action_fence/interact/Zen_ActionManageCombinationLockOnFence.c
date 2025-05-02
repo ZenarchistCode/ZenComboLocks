@@ -49,6 +49,13 @@ class Zen_ActionManageCombinationLockOnFence : ActionInteractBase
 	// Check client-side conditions
 	override bool ActionCondition(PlayerBase player, ActionTarget target, ItemBase item)
 	{
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			return false;
+		}
+		#endif
+
 		// If interact anywhere is disabled, do not show manage lock action on fence
 		if (!GetZenComboLocksConfig().ClientSyncConfig || !GetZenComboLocksConfig().ClientSyncConfig.InteractAnywhere)
 			return false;

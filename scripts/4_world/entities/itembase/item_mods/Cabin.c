@@ -5,6 +5,13 @@ modded class Prefab_Cabin
 	{
 		super.CloseCabinFence();
 
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			return;
+		}
+		#endif
+
 		#ifdef SERVER
 		if (GetCombinationLock() && !GetCombinationLock().IsLocked())
 		{
@@ -31,5 +38,5 @@ modded class Prefab_Cabin
 		AddAction(Zen_ActionRemoveCombinationLockOnFence);
 		AddAction(Zen_ActionAdminCombinationLockOnFence);
 	}
-};
+}
 #endif

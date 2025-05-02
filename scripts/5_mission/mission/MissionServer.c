@@ -4,6 +4,14 @@ modded class MissionServer
 	override void OnInit()
 	{
 		super.OnInit();
+
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			return;
+		}
+		#endif
+
 		Print("[ZenComboLocks] OnInit");
 
 		// Load config
@@ -15,10 +23,17 @@ modded class MissionServer
 	{
 		super.InvokeOnConnect(player, identity);
 
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			return;
+		}
+		#endif
+
 		if (!player || !identity) 
 			return;
 
-		GetGame().GetCallQueue(CALL_CATEGORY_SYSTEM).CallLater(SendComboLockConfig, 1, false, player);
+		SendComboLockConfig(player);
 	}
 
 	// Send combo lock config to player from server
@@ -33,4 +48,4 @@ modded class MissionServer
 			GetZenComboLocksConfig().IsAdminZCBL(player.GetIdentity().GetPlainId()));
 		GetRPCManager().SendRPC("RPC_ZCL", "RPC_ReceiveZenComboLocksConfigOnClient", configParams, true, player.GetIdentity());
 	}
-};
+}

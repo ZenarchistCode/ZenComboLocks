@@ -8,4 +8,4 @@ class ComboLockData
 		m_PermittedPlayers = new array<string>;
 		m_PlayerOwner = "";
 	}
-};
+}

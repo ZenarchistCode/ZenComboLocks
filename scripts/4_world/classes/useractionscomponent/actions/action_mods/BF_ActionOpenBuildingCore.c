@@ -3,6 +3,13 @@ modded class ActionOpenBuildingCore
 {
 	override bool ActionCondition(PlayerBase player, ActionTarget target, ItemBase item)
 	{
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			return super.ActionCondition(player, target, item);
+		}
+		#endif
+
 		if (super.ActionCondition(player, target, item))
 		{
 			BF_DoorBarricade door = BF_DoorBarricade.Cast(target.GetObject());
@@ -24,6 +31,13 @@ modded class ActionOpenBuildingCore
 	{
 		super.OnStartServer(action_data);
 
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			return;
+		}
+		#endif
+
 		BuildingFortficationsCore bfc = BuildingFortficationsCore.Cast(action_data.m_Target.GetObject());
 		if (bfc)
 		{
@@ -35,5 +49,5 @@ modded class ActionOpenBuildingCore
 			}
 		}
 	}
-};
+}
 #endif

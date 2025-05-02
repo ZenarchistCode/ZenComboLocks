@@ -1,4 +1,4 @@
-// If anyone's wondering why I put Zen_ in front of every god damn thing it's to stop conflicts with other mods lol. Total pain in the ass
+// If anyone's wondering why I put Zen_ in front of every god damn thing it's to stop conflicts with other mods not because I'm an egomaniac lol
 modded class ActionConstructor
 {
     override void RegisterActions(TTypenameArray actions)
@@ -31,4 +31,4 @@ modded class ActionConstructor
         actions.Insert(Zen_ActionAdminCombinationLockOnTarget);
         actions.Insert(Zen_ActionAdminCombinationLockOnFence);
     }
-};
+}

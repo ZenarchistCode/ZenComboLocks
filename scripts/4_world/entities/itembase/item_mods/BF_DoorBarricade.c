@@ -7,6 +7,13 @@ modded class BF_DoorBarricade
 		if (super.CanOpenFence())
 			return true;
 
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			return true;
+		}
+		#endif
+
 		if (HasHinges() && !IsOpened() && IsLocked())
 		{
 			if (GetGame().IsClient())
@@ -22,6 +29,13 @@ modded class BF_DoorBarricade
 	{
 		super.CloseFence();
 
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			return;
+		}
+		#endif
+
 		#ifdef SERVER
 		// Lock combination lock if it is not locked onto the door (ie. door owner/guest has unlocked lock, but not taken it off)
 		if (GetCombinationLock() && !GetCombinationLock().IsLocked())
@@ -29,12 +43,13 @@ modded class BF_DoorBarricade
 			GetCombinationLock().LockServer(this, true);
 		}
 		#endif
-	};
+	}
 
 	// Set actions
 	override void SetActions()
 	{
 		super.SetActions();
+
 		AddAction(Zen_ActionNextCombinationLockDialOnFence);
 		AddAction(Zen_ActionRemoveComboLock);
 		AddAction(Zen_ActionOpenComboLockFence);
@@ -44,5 +59,5 @@ modded class BF_DoorBarricade
 		AddAction(Zen_ActionRemoveCombinationLockOnFence);
 		AddAction(Zen_ActionAdminCombinationLockOnFence);
 	}
-};
+}
 #endif

@@ -4,6 +4,13 @@ modded class ActionCloseFence
 	{
 		super.OnStartServer(action_data);
 
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			return;
+		}
+		#endif
+
 		Fence fence = Fence.Cast(action_data.m_Target.GetObject());
 		if (fence)
 		{
@@ -17,4 +24,4 @@ modded class ActionCloseFence
 			}
 		}
 	}
-};
+}

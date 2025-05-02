@@ -2,6 +2,13 @@ class Zen_ActionNextCombinationLockDialOnFence : Zen_ActionNextCombinationLockDi
 {
 	override bool ActionCondition(PlayerBase player, ActionTarget target, ItemBase item)
 	{
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			return false;
+		}
+		#endif
+
 		// If there is no object, stop here
 		if (!target.GetObject())
 			return false;

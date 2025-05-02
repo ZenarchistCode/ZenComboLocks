@@ -6,6 +6,13 @@ modded class ActionCloseCabinFence : ActionInteractBase
 	{
 		super.OnStartClient(action_data);
 
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			return;
+		}
+		#endif
+
 		// Get combo lock
 		CombinationLock combination_lock = ZenComboLocksHelper.GetCombinationLock(action_data.m_Target.GetObject());
 

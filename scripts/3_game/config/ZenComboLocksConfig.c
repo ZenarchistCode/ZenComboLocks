@@ -167,7 +167,7 @@ class ZenComboLocksClientConfig
 	float DialTime = 0.5;
 	bool OwnerCanRemoveLockWithoutCode = false;
 	ref ZenComboLocksRaidConfig RaidConfig;
-};
+}
 
 // Server-side only config
 class ZenComboLocksServerConfig
@@ -176,14 +176,14 @@ class ZenComboLocksServerConfig
 	bool UnlockOnOpen = false;
 	int DigitMultiplier = 1;
 	ref array<string> AdminSteamIDs;
-};
+}
 
 // Raid config
 class ZenComboLocksRaidConfig
 {
 	bool Enabled = false; // Disabled by default
 	ref array<ref ZenLockConfig> LockConfig;
-};
+}
 
 // Lock config
 class ZenLockConfig
@@ -191,7 +191,7 @@ class ZenLockConfig
 	string LockType;
 	int TimeRequired;
 	int DamageTool; // BoltCutter Max HP = 1000
-};
+}
 
 // Save config data
 ref ZenComboLocksConfig m_ZenComboLocksConfig;
@@ -205,11 +205,11 @@ static ZenComboLocksConfig GetZenComboLocksConfig()
 		m_ZenComboLocksConfig = new ZenComboLocksConfig;
 
 		// Only load JSON config on the server
-		if (GetGame().IsServer())
+		if (GetGame().IsDedicatedServer())
 		{
 			m_ZenComboLocksConfig.Load();
 		}
 	}
 
 	return m_ZenComboLocksConfig;
-};
+}

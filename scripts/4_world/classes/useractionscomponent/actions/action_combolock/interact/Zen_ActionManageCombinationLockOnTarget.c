@@ -49,6 +49,13 @@ class Zen_ActionManageCombinationLockOnTarget : ActionInteractBase
 	// Check client-side conditions
 	override bool ActionCondition(PlayerBase player, ActionTarget target, ItemBase item)
 	{
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			return false;
+		}
+		#endif
+
 		// If there is no target object or we're an admin, stop here
 		if (!target.GetObject() || !GetZenComboLocksConfig().ClientSyncConfig || (player.IsAdminZCBL() && !GetZenComboLocksConfig().ClientSyncConfig.AllowAdminOpen))
 			return false;

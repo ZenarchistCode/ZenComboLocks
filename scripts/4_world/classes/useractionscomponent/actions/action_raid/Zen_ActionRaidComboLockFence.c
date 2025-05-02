@@ -45,6 +45,13 @@ class Zen_ActionRaidComboLockFence : ActionContinuousBase
 
 	override bool ActionCondition(PlayerBase player, ActionTarget target, ItemBase item)
 	{
+		#ifdef ZENMODPACK
+		if (!ZenModEnabled("ZenComboLocks"))
+		{
+			return false;
+		}
+		#endif
+
 		// If there is no object, stop here
 		if (!target.GetObject() || !GetZenComboLocksConfig().ClientSyncConfig)
 			return false;
@@ -95,12 +102,20 @@ class Zen_ActionRaidComboLockFence : ActionContinuousBase
 
 			if (lock.IsLockedOnGate())
 			{
-				// Destroy lock and drop it
+				// Destroy lock and drop it if possible
 				lock.UnlockServer(action_data.m_Player, lock.GetHierarchyParent());
-				lock.GetInventory().DropEntity(InventoryMode.SERVER, lock.GetHierarchyParent(), lock);
-				lock.SetHealth(0);
-				action_data.m_MainItem.SetHealth(action_data.m_MainItem.GetHealth() - raidConfig.DamageTool);
-				ZenComboLocksLogger.Log("Player " + action_data.m_Player.GetIdentity().GetPlainId() + " destroyed lock with Bolt Cutters @ " + action_data.m_Player.GetPosition());
+
+				if (lock.GetHierarchyParent())
+				{
+					lock.GetInventory().DropEntity(InventoryMode.SERVER, lock.GetHierarchyParent(), lock);
+					lock.SetHealth(0);
+					action_data.m_MainItem.SetHealth(action_data.m_MainItem.GetHealth() - raidConfig.DamageTool);
+					ZenComboLocksLogger.Log("Player " + action_data.m_Player.GetIdentity().GetPlainId() + " destroyed lock with Bolt Cutters @ " + action_data.m_Player.GetPosition());
+				}
+				else
+				{
+					lock.DeleteSafe();
+				}
 			}
 		}
 	}
