@@ -29,10 +29,6 @@ class Zen_ActionNextCombinationLockDialOnTarget : ActionInteractBase
 		if (!target.GetObject() || !GetZenComboLocksConfig().ClientSyncConfig)
 			return false;
 
-		// If BBP, stop here
-		if (target.GetObject().IsKindOf("BBP_WALL_BASE"))
-			return false;
-
 		// Check if player is looking directly at combo lock
 		CombinationLock lock = CombinationLock.Cast(target.GetObject());
 

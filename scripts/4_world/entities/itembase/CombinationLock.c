@@ -214,7 +214,7 @@ modded class CombinationLock
 			m_ComboLockData = new ComboLockData();
 		}
 
-		ZenComboLocksLogger.Log("Assigned new OWNER to combination lock: " + id + " - " + this.GetType() + " / digits=" + this.GetLockDigits() + " / loc=" + this.GetPosition());
+		ZenComboLocksLogger.Log("Assigned new OWNER to combination lock: " + id + " - " + GetType() + " / digits=" + GetLockDigits() + " / loc=" + GetPosition());
 		m_ComboLockData.m_PlayerOwner = id;
 		return true;
 	}
@@ -240,7 +240,7 @@ modded class CombinationLock
 			}
 		}
 
-		ZenComboLocksLogger.Log("Assigned new GUEST to combination lock: " + id + " - " + this.GetType() + " / digits=" + this.GetLockDigits() + " / loc=" + this.GetPosition());
+		ZenComboLocksLogger.Log("Assigned new GUEST to combination lock: " + id + " - " + GetType() + " / digits=" + GetLockDigits() + " / loc=" + GetPosition());
 		m_ComboLockData.m_PermittedPlayers.Insert(id);
 		return true;
 	}
@@ -345,7 +345,9 @@ modded class CombinationLock
 				{
 					// If combo data is null, create it
 					if (!m_ComboLockData)
+					{
 						m_ComboLockData = new ComboLockData;
+					}
 
 					// Get player (note: this returns NULL if player requests sync right on login? Added short delay)
 					int highBits, lowBits;
@@ -546,7 +548,9 @@ modded class CombinationLock
 				if (pb && pb.GetIdentity())
 				{
 					if (!m_ComboLockData)
+					{
 						m_ComboLockData = new ComboLockData;
+					}
 
 					// If player is not on permission list, add them
 					if (!IsPermittedToOpen(pb))

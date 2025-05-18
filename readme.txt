@@ -26,7 +26,8 @@ Known Compatibility:
 - CodeLock: Seems fully compatible.
 - BuildingFortifications: Seems fully compatible.
 - EvenMoreDoors: Seems fully compatible.
-- BaseBuildingPlus: Is 99% compatible - Manage Lock action doesn't work, can't figure out how to fix it yet as #ifdef BBP doesn't work for me. But this doesn't break my mod, it's just one feature that doesn't work properly.
+- BaseBuildingPlus: Seems fully compatible.
+- RaG Basebuilding: Seems fully compatible.
 
 Known Incompatibility/Issues:
 - Expansion: Will likely have issues - haven't done any testing on it. Given the complexity of that mod I probably won't try unless it's a popular request, as most servers run code locks with Exp anyway.

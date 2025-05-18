@@ -64,10 +64,6 @@ class Zen_ActionManageCombinationLockOnFence : ActionInteractBase
 		if (!target.GetObject() || (player.IsAdminZCBL() && !GetZenComboLocksConfig().ClientSyncConfig.AllowAdminOpen))
 			return false;
 
-		// BaseBuildingPlus is difficult to get my lock management to work with, so I just don't bother for now
-		if (target.GetObject().IsKindOf("BBP_WALL_BASE"))
-			return false;
-
 		// Check if player is looking at fence
 		CombinationLock lock = ZenComboLocksHelper.GetCombinationLock(target.GetObject());
 

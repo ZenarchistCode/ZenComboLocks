@@ -101,7 +101,10 @@ class ZenComboLocksHelper
 		}
 		#endif
 
-		// No lock found
-		return NULL;
+		EntityAI entityObject = EntityAI.Cast(doorGateThingy);
+		if (!entityObject)
+			return NULL;
+
+		return CombinationLock.Cast(entityObject.FindAttachmentBySlotName("Att_CombinationLock"));
 	}
-};
+}

@@ -13,10 +13,6 @@ class Zen_ActionNextCombinationLockDialOnFence : Zen_ActionNextCombinationLockDi
 		if (!target.GetObject())
 			return false;
 
-		// If BBP, stop here due to compatibility issues
-		if (target.GetObject().IsKindOf("BBP_WALL_BASE"))
-			return false;
-
 		// If interact anywhere is disabled, stop here
 		if (!GetZenComboLocksConfig().ClientSyncConfig || !GetZenComboLocksConfig().ClientSyncConfig.InteractAnywhere)
 			return false;
