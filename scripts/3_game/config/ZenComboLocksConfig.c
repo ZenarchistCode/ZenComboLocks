@@ -159,7 +159,7 @@ class ZenComboLocksConfig
 // Config sync'd to client
 class ZenComboLocksClientConfig
 {
-	bool AllowAdminOpen = false;
+	bool AllowAdminOpen = true;
 	bool InteractAnywhere = true;
 	bool InstantOpen = false;
 	bool DismantleWithLock = false;

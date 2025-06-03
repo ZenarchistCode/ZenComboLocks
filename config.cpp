@@ -11,6 +11,7 @@ class CfgPatches
 		units[] =
 		{
 			"Zen_BoltCutter",
+			"Zen_CombinationLock4",
 			"Zen_CombinationLock5",
 			"Zen_CombinationLock6",
 			"Zen_CombinationLock7",
@@ -492,7 +493,7 @@ class CfgVehicles
 class CfgSoundSets
 {
 	class Zen_BoltCutter_SoundSet { soundShaders[] = { "Zen_BoltCutter_SoundSet" }; volumeFactor = 1.0; };
-}
+};
 
 class CfgSoundShaders
 {
@@ -516,4 +517,4 @@ class CfgSoundShaders
 			{ "ZenComboLocks\data\sounds\zen_boltcutter_cut6", 1 }
 		}; 
 	};
-}
+};

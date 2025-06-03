@@ -76,7 +76,7 @@ modded class CombinationLock
 	}
 
 	// Display digit text (client-side only!)
-	void DisplayDigitText()
+	void DisplayDigitText(string prefix = "")
 	{
 		// Create new combo lock digit if needed
 		if (!m_ZenComboLockGUI)
@@ -85,12 +85,12 @@ modded class CombinationLock
 		// Display code to GUI
 		if (GetZenComboLocksConfig().ClientSyncConfig.DisplayDigits == 1)
 		{
-			m_ZenComboLockGUI.SetText(GetDialNumberText(false).Get(m_DialIndex));
+			m_ZenComboLockGUI.SetText(prefix + GetDialNumberText(false).Get(m_DialIndex));
 		}
 		else
 		if (GetZenComboLocksConfig().ClientSyncConfig.DisplayDigits == 2)
 		{
-			m_ZenComboLockGUI.SetText(GetDialNumberText(true));
+			m_ZenComboLockGUI.SetText(prefix + GetDialNumberText(true));
 		}
 	}
 
@@ -206,6 +206,16 @@ modded class CombinationLock
 		return m_ComboLockData;
 	}
 
+	// Trigger sync 
+	void TriggerZenSync()
+	{
+		if (GetGame().IsDedicatedServer())
+		{
+			m_ServerSyncID++;
+			SetSynchDirty();
+		}
+	}
+
 	// Set owner
 	bool SetOwnerPermission(string id)
 	{
@@ -216,6 +226,8 @@ modded class CombinationLock
 
 		ZenComboLocksLogger.Log("Assigned new OWNER to combination lock: " + id + " - " + GetType() + " / digits=" + GetLockDigits() + " / loc=" + GetPosition());
 		m_ComboLockData.m_PlayerOwner = id;
+		TriggerZenSync();
+
 		return true;
 	}
 
@@ -242,6 +254,8 @@ modded class CombinationLock
 
 		ZenComboLocksLogger.Log("Assigned new GUEST to combination lock: " + id + " - " + GetType() + " / digits=" + GetLockDigits() + " / loc=" + GetPosition());
 		m_ComboLockData.m_PermittedPlayers.Insert(id);
+		TriggerZenSync();
+
 		return true;
 	}
 
@@ -255,6 +269,7 @@ modded class CombinationLock
 
 		m_ComboLockData.m_PlayerOwner = "";
 		m_ComboLockData.m_PermittedPlayers.Clear();
+		TriggerZenSync();
 	}
 	//------------ </Server-side> ------------
 
@@ -567,7 +582,7 @@ modded class CombinationLock
 						}
 
 						// Force re-sync nearby client permissions for this lock
-						m_ServerSyncID++;
+						TriggerZenSync();
 					}
 				}
 			}
@@ -607,7 +622,7 @@ modded class CombinationLock
 
 					// Wipe guests since owner has changed or code has changed
 					m_ComboLockData.m_PermittedPlayers.Clear();
-					m_ServerSyncID++; // Force nearby clients to re-sync
+					TriggerZenSync(); // Force nearby clients to re-sync
 					Synchronize();
 				}
 			}

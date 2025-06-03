@@ -72,7 +72,7 @@ class Zen_ActionOpenComboLockInstantFence : ActionInteractBase
 		if (GetZenComboLocksConfig().ClientSyncConfig.InstantOpen || (GetZenComboLocksConfig().ClientSyncConfig.AllowAdminOpen && action_data.m_Player.IsAdminZCBL()))
 		{
 			// If player doesn't exist, stop here to avoid crashes
-			if (!action_data.m_Player || !action_data.m_Player.GetIdentity() || !action_data.m_Player.GetIdentity())
+			if (!action_data.m_Player || !action_data.m_Player.GetIdentity())
 				return;
 
 			// Get player action construction data & combo lock object
