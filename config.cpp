@@ -6,18 +6,9 @@ class CfgPatches
         requiredAddons[]=
         {
             "DZ_Data",
-            "DZ_Scripts"
+            "DZ_Scripts",
+			"ZenModCore"
         };
-		units[] =
-		{
-			"Zen_BoltCutter",
-			"Zen_CombinationLock4",
-			"Zen_CombinationLock5",
-			"Zen_CombinationLock6",
-			"Zen_CombinationLock7",
-			"Zen_CombinationLock8",
-			"Zen_CombinationLock9"
-		};
     };
 };
 
@@ -25,16 +16,15 @@ class CfgMods
 {
     class ZenComboLocks
     {
-        type="mod";
-        author="";
-        dir="ZenComboLocks";
-        name="ZenComboLocks";
+		author = "Zenarchist";
+		type = "mod";
+		storageVersion = 1; // CF storage
         dependencies[]=
-        {
-            "Game",
-            "World",
-            "Mission"
-        };
+		{
+			"Game",
+			"World",
+			"Mission"
+		};
         class defs
         {
             class gameScriptModule
@@ -42,7 +32,6 @@ class CfgMods
                 value="";
                 files[]=
                 {
-					"ZenComboLocks/scripts/common",
                     "ZenComboLocks/Scripts/3_Game"
                 };
             };
@@ -51,7 +40,6 @@ class CfgMods
                 value="";
                 files[]=
                 {
-					"ZenComboLocks/scripts/common",
                     "ZenComboLocks/Scripts/4_World"
                 };
             };
@@ -60,7 +48,6 @@ class CfgMods
                 value="";
                 files[]=
                 {
-					"ZenComboLocks/scripts/common",
                     "ZenComboLocks/Scripts/5_Mission"
                 };
             };
@@ -365,7 +352,7 @@ class CfgVehicles
 		displayName = "$STR_ZenBoltCutterName";
 		descriptionShort = "$STR_ZenBoltCutterDesc";
 		model = "\ZenComboLocks\data\model\zen_boltcutter.p3d";
-		rotationFlags = 1;
+		rotationFlags = 4;
 		weight = 4400;
 		itemSize[] = { 2,6 };
 		lootCategory = "Tools";
