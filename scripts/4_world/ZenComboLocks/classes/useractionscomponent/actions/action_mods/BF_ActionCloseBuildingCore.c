@@ -1,4 +1,4 @@
-#ifdef BuildingFort_Mod_1A
+#ifdef BuildingFortifications
 modded class ActionCloseBuildingCore : ActionInteractBase
 {
 	override bool ActionCondition(PlayerBase player, ActionTarget target, ItemBase item)

@@ -512,7 +512,7 @@ modded class CombinationLock
 
 		if (IsLocked())
 		{
-			#ifdef BuildingFort_Mod_1A
+			#ifdef BuildingFortifications
 			BuildingFortficationsCore bf_door = BuildingFortficationsCore.Cast(GetHierarchyParent());
 			if (bf_door)
 				return true;

@@ -15,11 +15,17 @@ class ZenComboLocksHelper
 		}
 
 		// Check BF
-		#ifdef BuildingFort_Mod_1A
-		BF_DoorBarricade bf_door = BF_DoorBarricade.Cast(doorGateThingy);
-		if (bf_door)
+		#ifdef BuildingFortifications
+		BF_DoorBarricade bfDoor = BF_DoorBarricade.Cast(doorGateThingy);
+		if (bfDoor)
 		{
-			return bf_door.IsOpened();
+			return bfDoor.IsOpened();
+		}
+		
+		BF_DoubleDoorBarricade bfdDoor = BF_DoubleDoorBarricade.Cast(doorGateThingy);
+		if (bfdDoor)
+		{
+			return bfdDoor.IsOpened();
 		}
 		#endif
 
@@ -50,11 +56,18 @@ class ZenComboLocksHelper
 		}
 
 		// Check BF
-		#ifdef BuildingFort_Mod_1A
-		BuildingFortficationsCore bf_door = BuildingFortficationsCore.Cast(doorGateThingy);
-		if (bf_door)
+		#ifdef BuildingFortifications
+		BF_DoorBarricade bfDoor = BF_DoorBarricade.Cast(doorGateThingy);
+		if (bfDoor)
 		{
-			bf_door.OpenFence();
+			bfDoor.OpenFence();
+			return;
+		}
+		
+		BF_DoubleDoorBarricade bfdDoor = BF_DoubleDoorBarricade.Cast(doorGateThingy);
+		if (bfdDoor)
+		{
+			bfdDoor.OpenFence();
 			return;
 		}
 		#endif
@@ -84,11 +97,17 @@ class ZenComboLocksHelper
 		}
 
 		// Check BF
-		#ifdef BuildingFort_Mod_1A
-		BF_DoorBarricade bf_door = BF_DoorBarricade.Cast(doorGateThingy);
-		if (bf_door)
+		#ifdef BuildingFortifications
+		BF_DoorBarricade bfDoor = BF_DoorBarricade.Cast(doorGateThingy);
+		if (bfDoor)
 		{
-			return bf_door.GetCombinationLock();
+			bfDoor.GetCombinationLock();
+		}
+		
+		BF_DoubleDoorBarricade bfdDoor = BF_DoubleDoorBarricade.Cast(doorGateThingy);
+		if (bfdDoor)
+		{
+			bfdDoor.GetCombinationLock();
 		}
 		#endif
 

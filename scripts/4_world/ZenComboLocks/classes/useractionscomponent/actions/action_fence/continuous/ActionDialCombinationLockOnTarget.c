@@ -8,7 +8,7 @@ modded class ActionDialCombinationLockOnTarget
 		#ifdef ZenModPack
 		if (!ZenModEnabled("ZenComboLocks"))
 		{
-			return super.ActionCondition(player, target, item);
+			return super.Can(player, target, item, condition_mask);
 		}
 		#endif
 
