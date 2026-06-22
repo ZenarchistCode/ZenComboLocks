@@ -101,13 +101,13 @@ class ZenComboLocksHelper
 		BF_DoorBarricade bfDoor = BF_DoorBarricade.Cast(doorGateThingy);
 		if (bfDoor)
 		{
-			bfDoor.GetCombinationLock();
+			return bfDoor.GetCombinationLock();
 		}
 		
 		BF_DoubleDoorBarricade bfdDoor = BF_DoubleDoorBarricade.Cast(doorGateThingy);
 		if (bfdDoor)
 		{
-			bfdDoor.GetCombinationLock();
+			return bfdDoor.GetCombinationLock();
 		}
 		#endif
 

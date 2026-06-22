@@ -1,32 +1,6 @@
 #ifdef BuildingFortifications
-modded class ActionCloseBuildingCore : ActionInteractBase
+modded class ActionCloseBuildingCore
 {
-	override bool ActionCondition(PlayerBase player, ActionTarget target, ItemBase item)
-	{
-		#ifdef ZenModPack
-		if (!ZenModEnabled("ZenComboLocks"))
-		{
-			return super.ActionCondition(player, target, item);
-		}
-		#endif
-
-		Object targetObject = target.GetObject();
-		if (targetObject && targetObject.CanUseConstruction())
-		{
-			BuildingFortficationsCore fence = BuildingFortficationsCore.Cast(targetObject);
-
-			if (fence && fence.CanCloseFence())
-			{
-				// Check if interact anywhere is enabled
-				if (GetZenComboLocksConfig().ClientSyncConfig && GetZenComboLocksConfig().ClientSyncConfig.InteractAnywhere)
-					return true;
-			}
-		}
-
-		return super.ActionCondition(player, target, item);
-	}
-
-	// Do action (client-side only)
 	override void OnStartClient(ActionData action_data)
 	{
 		super.OnStartClient(action_data);
@@ -38,14 +12,15 @@ modded class ActionCloseBuildingCore : ActionInteractBase
 		}
 		#endif
 
-		// Get combo lock
-		CombinationLock combination_lock = ZenComboLocksHelper.GetCombinationLock(action_data.m_Target.GetObject());
-
-		// If combo lock exists, handle management
-		if (combination_lock)
+		if (!action_data || !action_data.m_Target || !action_data.m_Target.GetObject())
 		{
-			// Set managing lock to false after door has been closed
-			combination_lock.SetManagingLockClient(false);
+			return;
+		}
+
+		CombinationLock combinationLock = ZenComboLocksHelper.GetCombinationLock(action_data.m_Target.GetObject());
+		if (combinationLock)
+		{
+			combinationLock.SetManagingLockClient(false);
 		}
 	}
 }
