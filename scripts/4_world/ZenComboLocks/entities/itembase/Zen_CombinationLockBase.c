@@ -1,40 +1,18 @@
-class Zen_CombinationLockBase extends CombinationLock
+// Persistence-only migration classes for locks spawned by ZenComboLocks 1.29.
+// Every legacy type is hidden and now uses the native four-dial 1.30 lock.
+class Zen_CombinationLockBase extends CombinationLock4
 {
-	// Set lock digit count based on config.cpp
-	override void SetBaseLockValues()
+	override void AfterStoreLoad()
 	{
-		m_LockDigits = ConfigGetInt("lockDigits");
-		string combination = "";
-		string combinationLocked = "";
+		m_Combination = m_Combination % 10000;
+		m_CombinationInside = m_CombinationInside % 10000;
+		m_CombinationLocked = m_CombinationLocked % 10000;
+		m_LockDigitsCount = m_CombinationLocked.ToString().Length();
 
-		for (int i = 0; i < m_LockDigits; i++)
-		{
-			combination = combination + "1";
-			combinationLocked = combinationLocked + "9";
-		}
-
-		m_Combination = combination.ToInt();
-		m_CombinationLocked = combinationLocked.ToInt();
-	}
-
-	// Set digit number in displayName
-	override string GetDisplayName()
-	{
-		string displayName = ConfigGetString("displayName");
-		displayName.Replace("$", m_LockDigits.ToString());
-		return displayName;
-	}
-
-	// Set digit number in description tooltip
-	override string GetTooltip()
-	{
-		string description = ConfigGetString("descriptionShort");
-		description.Replace("$", m_LockDigits.ToString());
-		return description;
+		super.AfterStoreLoad();
 	}
 }
 
-// Define custom combo locks
 class Zen_CombinationLock4 extends Zen_CombinationLockBase {}
 class Zen_CombinationLock5 extends Zen_CombinationLockBase {}
 class Zen_CombinationLock6 extends Zen_CombinationLockBase {}

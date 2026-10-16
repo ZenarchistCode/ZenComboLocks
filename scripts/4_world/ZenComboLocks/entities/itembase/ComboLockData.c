@@ -14,9 +14,9 @@ class ComboLockData
 		return m_PlayerOwner;
 	}
 
-	void SetOwner(string steamID)
+	void SetOwner(string playerID)
 	{
-		m_PlayerOwner = steamID;
+		m_PlayerOwner = playerID;
 	}
 
 	array<string> GetGuests()
